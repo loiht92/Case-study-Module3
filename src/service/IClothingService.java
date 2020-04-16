@@ -17,7 +17,4 @@ public interface IClothingService {
     public boolean update(Clothing clothing) throws SQLException;
 
     public boolean remove(int id) throws SQLException;
-
-
-
 }

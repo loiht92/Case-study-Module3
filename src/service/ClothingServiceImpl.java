@@ -85,7 +85,7 @@ public class ClothingServiceImpl implements IClothingService {
 
     @Override
     public void insert(Clothing clothing) throws SQLException {
-        String insertClothing = "insert into clothing_manager.clothing (name, description, picture, price, origin) value (?,?,?,?,?)";
+        String insertClothing = "insert into clothing_manager.clothing (name, description, picture, price, origin, category_id) value (?,?,?,?,?,?)";
 
         try (
                 Connection connection = getConnection();
@@ -97,6 +97,8 @@ public class ClothingServiceImpl implements IClothingService {
             statement.setString(3, clothing.getPicture());
             statement.setInt(4, clothing.getPrice());
             statement.setString(5, clothing.getOrigin());
+            statement.setInt(6, clothing.getCategory_id());
+
             System.out.println(statement);
             statement.executeUpdate();
 
@@ -114,8 +116,10 @@ public class ClothingServiceImpl implements IClothingService {
     @Override
     public boolean update(Clothing clothing) throws SQLException {
         boolean rowUpdated;
-        try(Connection connection = getConnection();
-            PreparedStatement statement = connection.prepareStatement(updateClothing)) {
+        try(
+                Connection connection = getConnection();
+                PreparedStatement statement = connection.prepareStatement(updateClothing)
+        ) {
                 statement.setString(1, clothing.getName());
                 statement.setString(2,clothing.getDescription());
                 statement.setString(3,clothing.getPicture());
@@ -131,8 +135,10 @@ public class ClothingServiceImpl implements IClothingService {
     @Override
     public boolean remove(int id) throws SQLException {
         boolean rowDeleted;
-        try(Connection connection = getConnection();
-            PreparedStatement statement = connection.prepareStatement(deleteClothing)) {
+        try(
+                Connection connection = getConnection();
+                PreparedStatement statement = connection.prepareStatement(deleteClothing)
+        ) {
             statement.setInt(1,id);
             rowDeleted = statement.executeUpdate() > 0;
         }

@@ -27,32 +27,43 @@
             <tr>
                 <th>Name:</th>
                 <td>
-                    <input type="text" name="name" id="name" size="45"/>
+                    <input type="text" name="clothing.name" id="name" size="45"/>
                 </td>
             </tr>
             <tr>
                 <th>Description:</th>
                 <td>
-                    <input type="text" name="des" id="des" size="45"/>
+                    <input type="text" name="clothing.description" id="des" size="45"/>
                 </td>
             </tr>
             <tr>
                 <th>picture:</th>
                 <td>
-                    <input type="text" name="picture" id="picture" size="15"/>
+                    <input type="text" name="clothing.picture" id="picture" size="15"/>
                 </td>
             </tr>
             <tr>
                 <th>price:</th>
                 <td>
-                    <input type="text" name="price" id="price" size="15"/>
+                    <input type="text" name="clothing.price" id="price" size="15"/>
                 </td>
             </tr>
             <tr>
                 <th>origin:</th>
                 <td>
-                    <input type="text" name="origin" id="origin" size="15"/>
+                    <input type="text" name="clothing.origin" size="15"/>
                 </td>
+            </tr>
+            <tr>
+                <th>
+
+                </th>Select a Category:&nbsp;
+                    <select name="category">
+                        <c:forEach items="${listCategory}" var="category">
+                            <option value="${category.id}">${category.name}</option>
+                        </c:forEach>
+                    </select>
+                <br/><br/>
             </tr>
 
             <tr>

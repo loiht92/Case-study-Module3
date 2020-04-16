@@ -26,26 +26,14 @@ public class ClothingServlet extends HttpServlet {
     private ICategoryService categoryService = new CategoryServiceImpl();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if (action == null){
-            action = "";
-        }
+
         try {
-            switch (action) {
+            switch (action != null ? action : "") {
                 case "createClothing":
                     createClothing(request, response);
                     break;
-                case "createCategory":
-                    createCategory(request, response);
+                case "update":
                     break;
-                case "editClothing":
-                    editClothing(request, response);
-                    break;
-                case "editCategory":
-                    editCategory(request, response);
-                    break;
-//                case "deleteClothing":
-//                    deleteClothing(request, response);
-//                    break;
                 default:
                     break;
 
@@ -58,34 +46,19 @@ public class ClothingServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
 
-        if (Objects.isNull(action)) {
-            action = "";
-        }
         try {
-            switch (action) {
+            switch (action != null ? action : "") {
                 case "createClothing":
                     showCreateClothing(request, response);
-                    break;
-                case "createCategory":
-                    showCreateCategory(request, response);
                     break;
                 case "editClothing":
                     showEditClothing(request, response);
                     break;
-                case "editCategory":
-                    showEditCategory(request, response);
-                    break;
                 case "listClothing":
                     showListClothing(request,response);
                     break;
-                case "listCategory":
-                    showListCategory(request,response);
-                    break;
                 case "deleteClothing":
                     deleteClothing(request, response);
-                    break;
-                case "deleteCategory":
-                    deleteCategory(request, response);
                     break;
                 default:
                     listClothingCategory(request, response);
@@ -108,9 +81,9 @@ public class ClothingServlet extends HttpServlet {
     }
 
     private void showListClothing(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException,ServletException {
-        List<Clothing> clothing = this.clothingService.findAll();
+        List<Clothing> clothing = this.clothingService.findAllClothingCategory();
         request.setAttribute("clothing", clothing);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("clothes/list_clothing.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("clothes/list_clothing_category.jsp");
         requestDispatcher.forward(request,response);
     }
 
@@ -124,14 +97,24 @@ public class ClothingServlet extends HttpServlet {
 
     private void createClothing(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        String picture = request.getParameter("picture");
-        int price = Integer.parseInt(request.getParameter("price"));
-        String origin = request.getParameter("origin");
+        String name = request.getParameter("clothing.name");
+        String description = request.getParameter("clothing.description");
+        String picture = request.getParameter("clothing.picture");
+        int price = Integer.parseInt(request.getParameter("clothing.price"));
+        String origin = request.getParameter("clothing.origin");
 
-        Clothing clothing = new Clothing(name,description,picture,price,origin);
+        String categoryName = request.getParameter("category.name");
+        String categoryStatus = request.getParameter("category.status");
+
+        List<Category> categoryList = this.categoryService.findAll();
+        request.setAttribute("listCategory", categoryList);
+
+        Clothing clothing = new Clothing(name,description,picture,price,origin,categoryName,categoryStatus);
         this.clothingService.insert(clothing);
+
+//        Category category = new Category(categoryName, categoryStatus);
+//        this.categoryService.insert(category);
+
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("clothes/create_clothing.jsp");
         request.setAttribute("message","Tao moi thanh cong");
         try {

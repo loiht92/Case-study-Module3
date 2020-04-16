@@ -14,8 +14,7 @@
 <body>
 <h1>Clothing</h1>
 <p>
-    <a href="${pageContext.request.contextPath}/clothing?action=listClothing">Clothing-Manager</a>
-    <a href="${pageContext.request.contextPath}/clothing?action=listCategory">Category-Manager</a>
+    <a href="${pageContext.request.contextPath}/clothing?action=createClothing">Clothing-Manager</a>
 </p>
 <div>
     <form method="get" action="${pageContext.request.contextPath}/clothing">

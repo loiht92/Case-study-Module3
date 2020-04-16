@@ -1,7 +1,6 @@
 package service;
 
 import model.Category;
-import model.Clothing;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -53,9 +52,9 @@ public class CategoryServiceImpl implements ICategoryService {
         try(Connection connection = getConnection();
             PreparedStatement statement = connection.prepareStatement(insertCategory)) {
             statement.setString(1, category.getName());
-            statement.setString(5,category.getStatus());
+            statement.setString(2,category.getStatus());
             System.out.println(statement);
-            statement.executeQuery();
+            statement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
