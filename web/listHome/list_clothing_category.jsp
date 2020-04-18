@@ -10,50 +10,83 @@
 <html>
 <head>
     <title>Clothing List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
 <body>
-<h1>Clothing</h1>
-<p>
-    <a href="${pageContext.request.contextPath}/clothing?action=listClothing">Clothing-Manager</a><br/>
-    <a href="${pageContext.request.contextPath}/category?action=listCategory">Category-Manager</a>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">Simple Ecommerce</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+                aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-</p>
-<div>
-    <form method="get" action="${pageContext.request.contextPath}/clothing?action=listClothingCategory">
-        <select name="status">
-            <c:forEach items='${requestScope["categories"]}' var="categories">
-                <option value="${categories.getId()}">${categories.getStatus()}</option>
-            </c:forEach>
-        </select>
-        <button type="submit" value="FindByStatus">Tìm kiếm theo tinh trang</button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+            <ul class="navbar-nav m-auto">
+                <li class="nav-item m-auto">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/clothing?action=clothing">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="category.html">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="product.html">Product</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="contact.html">Cart <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact</a>
+                </li>
+            </ul>
 
-    </form>
+            <form class="form-inline my-2 my-lg-0">
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                           placeholder="Search...">
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-secondary btn-number">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <a class="btn btn-success btn-sm ml-3" href="cart.html">
+                    <i class="fa fa-shopping-cart"></i> Cart
+                    <span class="badge badge-light">3</span>
+                </a>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <c:forEach items='${requestScope["clothing"]}' var="clothing">
+            <div class="col-md-3 col-sm-6">
+                <div class="product-grid">
+                    <div class="product-image">
+                        <a href="#">
+                            <img class="pic-1" src="${clothing.getPicture()}" alt="picture">
+                            <img class="pic-2" src="${clothing.getPicture()}" alt="pic">
+                        </a>
+                        <span class="product-new-label">Sale</span>
+                        <span class="product-discount-label">${clothing.getStatus}</span>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="title"><a href="#">Women's Blouse</a></h3>
+                        <div class="price">$16.00
+                            <span>$20.00</span>
+                        </div>
+                        <a class="add-to-cart" href="">+ Add To Cart</a>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
 </div>
-<table border="1">
-    <tr>
-        <td>Name</td>
-        <td>description</td>
-        <td>picture</td>
-        <td>price</td>
-        <td>origin</td>
-        <td>category</td>
-        <td>status</td>
-    </tr>
-
-
-    <c:forEach items='${requestScope["clothing"]}' var="clothing">
-        <tr>
-            <td>${clothing.getName()}</td>
-            <td>${clothing.getDescription()}</td>
-            <td><img src="${clothing.getPicture()}" alt="img" width="40%" height="auto"></td>
-            <td>${clothing.getPrice()}</td>
-            <td>${clothing.getOrigin()}</td>
-            <td>${clothing.getCategory()}</td>
-            <td>${clothing.getStatus()}</td>
-
-        </tr>
-    </c:forEach>
-</table>
 </body>
 </html>
 

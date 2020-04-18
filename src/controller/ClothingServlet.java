@@ -84,7 +84,7 @@ public class ClothingServlet extends HttpServlet {
         request.setAttribute("clothing", clothing);
         List<Category> categories = this.categoryService.findAll();
         request.setAttribute("categories", categories);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("listHome/list_clothing_category.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("listHomed/list_clothing_category.jsp");
         requestDispatcher.forward(request, response);
 
     }

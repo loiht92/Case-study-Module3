@@ -9,7 +9,7 @@ import java.util.List;
 public class ClothingServiceImpl implements IClothingService {
 	private static final String JDBC_URL = "jdbc:mysql://localhost:3306/clothing_manager";
 	private static final String JDBC_USER = "root";
-	private static final String JDBC_PASS = "loi123456";
+	private static final String JDBC_PASS = "password";
 
 	String updateClothing =
 			"update clothing_manager.clothing set name = ?, description = ?, picture = ?, price = ?, origin = ? where id = ?";
