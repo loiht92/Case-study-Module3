@@ -1,7 +1,6 @@
 package service.Bill;
 
 import model.Bill;
-import model.BillDetails;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -1,6 +1,5 @@
 package service.Coupon;
 
-import model.BillDetails;
 import model.Coupon;
 
 import java.sql.SQLException;
