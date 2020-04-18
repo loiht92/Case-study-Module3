@@ -1,5 +1,6 @@
 package service.Clothing;
 
+import model.Category;
 import model.Clothing;
 
 import java.sql.SQLException;
@@ -12,9 +13,15 @@ public interface IClothingService {
 
     public void insert(Clothing clothing) throws SQLException; //Them moi san pham
 
-    //public List<Clothing> findByCategoryID(int id); //Tim kiem theo ma the loai.
 
     public boolean update(Clothing clothing) throws SQLException;
 
     public boolean remove(int id) throws SQLException;
+
+    public List<Clothing> findByPrice(int price) throws SQLException;
+
+
+    public List<Clothing> findByStatus(String status) throws SQLException;
+
+
 }

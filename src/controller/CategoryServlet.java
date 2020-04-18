@@ -1,5 +1,6 @@
 package controller;
 
+import model.Account;
 import model.Category;
 import model.Clothing;
 import service.Category.CategoryServiceImpl;
@@ -57,6 +58,9 @@ public class CategoryServlet extends HttpServlet {
                     break;
                 case "deleteCategory":
                     deleteCategory(request, response);
+                    break;
+                case "findByCategoryName":
+                    findByCategoryName(request,response);
                     break;
                 default:
                     listClothingCategory(request, response);
@@ -129,5 +133,9 @@ public class CategoryServlet extends HttpServlet {
         request.setAttribute("categories",categories);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("listCategory/list_category.jsp");
         requestDispatcher.forward(request,response);
+    }
+    private void findByCategoryName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("search/findByCategoryName.jsp");
+        requestDispatcher.forward(request, response);
     }
 }

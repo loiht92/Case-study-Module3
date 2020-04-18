@@ -1,6 +1,7 @@
 package service.Category;
 
 import model.Category;
+import model.Clothing;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -85,5 +86,23 @@ public class CategoryServiceImpl implements ICategoryService {
             rowDeleted = statement.executeUpdate() > 0;
         }
         return rowDeleted;
+    }
+
+    @Override
+    public List<Category> findByCategoryName(String name) throws SQLException {
+        List<Category> categoryList = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement("select * from category where category_name = ?");) {
+            statement.setString(1, name);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                String status = resultSet.getString(2);
+
+                Category category = new Category(id, name, status);
+                categoryList.add(category);
+            }
+        }
+        return categoryList;
     }
 }

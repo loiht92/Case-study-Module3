@@ -58,6 +58,13 @@ public class ClothingServlet extends HttpServlet {
                 case "deleteClothing":
                     deleteClothing(request, response);
                     break;
+                case "findByPrice":
+                    findByClothingPrice(request, response);
+                    break;
+                case "findByStatus":
+                    findByClothingStatus(request, response);
+                    break;
+
                 default:
                     listClothingCategory(request, response);
                     break;
@@ -65,6 +72,17 @@ public class ClothingServlet extends HttpServlet {
         }catch (SQLException e){
             e.printStackTrace();
         }
+    }
+
+    private void findByClothingStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("search/findByPrice.jsp");
+        requestDispatcher.forward(request,response);
+
+    }
+
+    private void findByClothingPrice(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("search/findByStatus.jsp");
+        requestDispatcher.forward(request,response);
     }
 
 

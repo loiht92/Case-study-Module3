@@ -42,6 +42,18 @@ public class Clothing {
         this.status = status;
     }
 
+    public Clothing(int id, String name, String description, String picture, int price, String origin, String category, String status){
+        super();
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.picture = picture;
+        this.price = price;
+        this.origin = origin;
+        this.category = category;
+        this.status = status;
+    }
+
     public Clothing(String name, String description, String picture, int price, String origin, int category_id){
         this.name = name;
         this.description = description;

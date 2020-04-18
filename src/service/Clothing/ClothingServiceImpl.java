@@ -11,9 +11,6 @@ public class ClothingServiceImpl implements IClothingService {
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASS = "loi123456";
 
-
-    String selectClothing = "select * from clothing_manager.clothing";
-
     String updateClothing = "update clothing set name = ?, description = ?, picture = ?, price = ?, origin = ? where id = ?";
     String deleteClothing = "delete from clothing where id = ?";
 
@@ -143,5 +140,53 @@ public class ClothingServiceImpl implements IClothingService {
             rowDeleted = statement.executeUpdate() > 0;
         }
         return rowDeleted;
+    }
+
+    @Override
+    public List<Clothing> findByPrice(int price) throws SQLException {
+        List<Clothing> clothingList = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement("select * from clothing where price = ?");) {
+            statement.setInt(1, price);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                String name = resultSet.getString(2);
+                String description = resultSet.getString(3);
+                String picture = resultSet.getString(4);
+                String origin = resultSet.getString(5);
+
+                Clothing clothing = new Clothing(id, name, description, picture, price, origin);
+                clothingList.add(clothing);
+            }
+        }
+        return clothingList;
+    }
+
+    @Override
+    public List<Clothing> findByStatus(String status) {
+        List<Clothing> clothingList = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement("select clothing.id, clothing.name, clothing.description, clothing.picture, clothing.price,\n" +
+                     "       clothing.origin, c.category_name, c.status from clothing inner join category c on clothing.category_id = c.category_id\n" +
+                     "where status = ?;");) {
+            statement.setString(1, status);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                String name = resultSet.getString(2);
+                String description = resultSet.getString(3);
+                String picture = resultSet.getString(4);
+                int price = resultSet.getInt(5);
+                String origin = resultSet.getString(6);
+                String category_name = resultSet.getString(7);
+
+                Clothing clothing = new Clothing(id, name, description, picture, price, origin, category_name,status);
+                clothingList.add(clothing);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return clothingList;
     }
 }
