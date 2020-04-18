@@ -3,9 +3,9 @@ package model;
 public class Category {
     //TODO: int >> Integer
     //category_id >> id
-    protected int id;
-    protected String name;
-    protected String status;
+    private int id;
+    private String name;
+    private String status;
 
     public Category(){
     }
