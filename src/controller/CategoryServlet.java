@@ -19,125 +19,136 @@ import java.util.List;
 
 @WebServlet(name = "CategoryServlet", urlPatterns = "/category")
 public class CategoryServlet extends HttpServlet {
-    private IClothingService clothingService = new ClothingServiceImpl();
-    private ICategoryService categoryService = new CategoryServiceImpl();
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
+	private IClothingService clothingService = new ClothingServiceImpl();
+	private ICategoryService categoryService = new CategoryServiceImpl();
 
-        try {
-            switch (action != null ? action : "") {
-                case "createCategory":
-                    createCategory(request, response);
-                    break;
-                case "updateCategory":
-                    editCategory(request,response);
-                    break;
-                default:
-                    break;
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+		String action = request.getParameter("action");
 
-            }
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
+		try {
+			switch (action != null ? action : "") {
+				case "createCategory":
+					createCategory(request, response);
+					break;
+				case "updateCategory":
+					editCategory(request, response);
+					break;
+				default:
+					break;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
-        try {
-            switch (action != null ? action : "") {
-                case "createCategory":
-                    showCreateCategory(request, response);
-                    break;
-                case "editCategory":
-                    showEditCategory(request, response);
-                    break;
-                case "listCategory":
-                    showListCategory(request,response);
-                    break;
-                case "deleteCategory":
-                    deleteCategory(request, response);
-                    break;
-                case "findByCategoryName":
-                    findByCategoryName(request,response);
-                    break;
-                default:
-                    listClothingCategory(request, response);
-                    break;
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+		String action = request.getParameter("action");
+
+		try {
+			switch (action != null ? action : "") {
+				case "createCategory":
+					showCreateCategory(request, response);
+					break;
+				case "editCategory":
+					showEditCategory(request, response);
+					break;
+				case "listCategory":
+					showListCategory(request, response);
+					break;
+				case "deleteCategory":
+					deleteCategory(request, response);
+					break;
+				case "findByCategoryName":
+					findByCategoryName(request, response);
+					break;
+				default:
+					listClothingCategory(request, response);
+					break;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 
-    private void listClothingCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Clothing> clothing = this.clothingService.findAllClothingCategory();
-        request.setAttribute("clothing", clothing);
+	private void listClothingCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<Clothing> clothing = this.clothingService.findAllClothingCategory();
+		request.setAttribute("clothing", clothing);
 //        List<Category> categories = this.categoryService.findAll();
 //        request.setAttribute("categories",categories);
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("listHome/list_clothing_category.jsp");
-        requestDispatcher.forward(request,response);
-    }
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("listHome/list_clothing_category.jsp");
+		requestDispatcher.forward(request, response);
+	}
 
-    private void showListCategory(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException,ServletException {
-        List<Category> categories = this.categoryService.findAll();
-        request.setAttribute("categories", categories);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("listCategory/list_category.jsp");
-        requestDispatcher.forward(request,response);
+	private void showListCategory(HttpServletRequest request, HttpServletResponse response) throws SQLException,
+            IOException, ServletException {
+		List<Category> categories = this.categoryService.findAll();
+		request.setAttribute("categories", categories);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("listCategory/list_category.jsp");
+		requestDispatcher.forward(request, response);
 
-    }
+	}
 
-    private void createCategory(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        String name = request.getParameter("name");
-        String status = request.getParameter("status");
-        Category category = new Category(name,status);
-        this.categoryService.insert(category);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("listCategory/create_category.jsp");
-        requestDispatcher.forward(request,response);
+	private void createCategory(HttpServletRequest request, HttpServletResponse response) throws SQLException,
+            IOException, ServletException {
+		String name = request.getParameter("name");
+		String status = request.getParameter("status");
+		Category category = new Category(name, status);
+		this.categoryService.insert(category);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("listCategory/create_category.jsp");
+		requestDispatcher.forward(request, response);
 
-    }
-
-
-    private void showCreateCategory(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("listCategory/create_category.jsp");
-        requestDispatcher.forward(request,response);
-    }
+	}
 
 
-    private void editCategory(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        String name = request.getParameter("name");
-        String status = request.getParameter("status");
-
-        Category category = new Category(id,name,status);
-        this.categoryService.update(category);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("listCategory/edit_category.jsp");
-        requestDispatcher.forward(request,response);
-
-    }
+	private void showCreateCategory(HttpServletRequest request, HttpServletResponse response) throws SQLException,
+            ServletException, IOException {
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("listCategory/create_category.jsp");
+		requestDispatcher.forward(request, response);
+	}
 
 
-    private void showEditCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("listCategory/edit_category.jsp");
-        requestDispatcher.forward(request,response);
-    }
+	private void editCategory(HttpServletRequest request, HttpServletResponse response) throws SQLException,
+            ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		String name = request.getParameter("name");
+		String status = request.getParameter("status");
 
-    private void deleteCategory(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        this.categoryService.remove(id);
-        List<Category> categories = this.categoryService.findAll();
-        request.setAttribute("categories",categories);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("listCategory/list_category.jsp");
-        requestDispatcher.forward(request,response);
-    }
-    private void findByCategoryName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Category category = new Category(id, name, status);
+		this.categoryService.update(category);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("listCategory/edit_category.jsp");
+		requestDispatcher.forward(request, response);
 
-        List<Category> categories = this.categoryService.findAll();
-        request.setAttribute("categories", categories);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("listCategory/list_category.jsp");
-        requestDispatcher.forward(request,response);
-    }
+	}
+
+
+	private void showEditCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("listCategory/edit_category.jsp");
+		requestDispatcher.forward(request, response);
+	}
+
+	private void deleteCategory(HttpServletRequest request, HttpServletResponse response) throws SQLException,
+            ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		this.categoryService.remove(id);
+		List<Category> categories = this.categoryService.findAll();
+		request.setAttribute("categories", categories);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("listCategory/list_category.jsp");
+		requestDispatcher.forward(request, response);
+	}
+
+	private void findByCategoryName(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+
+		List<Category> categories = this.categoryService.findAll();
+		request.setAttribute("categories", categories);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("listCategory/list_category.jsp");
+		requestDispatcher.forward(request, response);
+	}
 }
