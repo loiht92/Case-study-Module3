@@ -1,14 +1,12 @@
 package controller;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import model.Category;
 import model.Clothing;
-import service.CategoryServiceImpl;
-import service.ClothingServiceImpl;
-import service.ICategoryService;
-import service.IClothingService;
+import service.Category.CategoryServiceImpl;
+import service.Clothing.ClothingServiceImpl;
+import service.Category.ICategoryService;
+import service.Clothing.IClothingService;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Objects;
 
 @WebServlet(name = "ClothingServlet", urlPatterns = "/clothing")
 public class ClothingServlet extends HttpServlet {

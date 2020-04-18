@@ -1,4 +1,4 @@
-package service;
+package service.Category;
 
 import model.Category;
 

@@ -1,4 +1,4 @@
-package service;
+package service.Clothing;
 
 import model.Clothing;
 
