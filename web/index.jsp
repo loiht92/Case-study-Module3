@@ -7,10 +7,17 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
-    <title>Home</title>
-  </head>
-  <body>
-  CHÀO MỪNG BẠN ĐẾN VỚI TRANG MUA SẮM CỦA CHÚNG TÔI !
-  </body>
+<head>
+  <title>Login</title>
+</head>
+<body>
+<h1>Login</h1>
+<form action="/login" method="post">
+  email: <input type="text" name="email"><br/>
+  password: <input type="text" name="password"><br/>
+  <input type="submit" value="login">
+
+</form>
+</body>
 </html>
+

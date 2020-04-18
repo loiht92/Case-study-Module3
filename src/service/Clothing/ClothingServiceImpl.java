@@ -11,8 +11,8 @@ public class ClothingServiceImpl implements IClothingService {
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASS = "loi123456";
 
-    String updateClothing = "update clothing set name = ?, description = ?, picture = ?, price = ?, origin = ? where id = ?";
-    String deleteClothing = "delete from clothing where id = ?";
+    String updateClothing = "update clothing_manager.clothing set name = ?, description = ?, picture = ?, price = ?, origin = ? where id = ?";
+    String deleteClothing = "delete from clothing_manager.clothing where id = ?";
 
     public ClothingServiceImpl(){
     }
@@ -32,8 +32,7 @@ public class ClothingServiceImpl implements IClothingService {
     @Override
     public List<Clothing> findAll() {
         List<Clothing> clothing = new ArrayList<>();
-
-        String selectAllClothing = "SELECT c.name, c.description, c.picture, c.price, c.origin FROM clothing c";
+        String selectAllClothing = "SELECT * FROM clothing_manager.clothing ";
 
         try (
                 Connection connection = getConnection();
@@ -41,29 +40,31 @@ public class ClothingServiceImpl implements IClothingService {
         ) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
+                int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 String description = resultSet.getString("description");
                 String picture = resultSet.getString("picture");
                 int price = resultSet.getInt("price");
                 String origin = resultSet.getString("origin");
 
-                clothing.add(new Clothing(name, description, picture, price, origin));
+                clothing.add(new Clothing(id, name, description, picture, price, origin));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return clothing;
     }
-    @Override//TODO Hiển thị danh sách thông ton của cả 2 bảng
+    @Override//TODO Hiển thị danh sách thông tin của cả 2 bảng
     public List<Clothing> findAllClothingCategory() {
         List<Clothing> clothingCategory = new ArrayList<>();
         String selectAll = "SELECT cl.id, ca.category_name, ca.status, cl.name, cl.description, cl.picture, cl.price, cl.origin\n" +
-                "FROM category as ca INNER JOIN clothing cl on cl.category_id = ca.category_id;";
+                "FROM clothing_manager.category as ca INNER JOIN clothing_manager.clothing cl on cl.category_id = ca.category_id;";
 
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(selectAll)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
+                int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 String description = resultSet.getString("description");
                 String picture = resultSet.getString("picture");
@@ -82,7 +83,7 @@ public class ClothingServiceImpl implements IClothingService {
 
     @Override
     public void insert(Clothing clothing) throws SQLException {
-        String insertClothing = "insert into clothing_manager.clothing (name, description, picture, price, origin, category_id) value (?,?,?,?,?,?)";
+        String insertClothing = "insert into clothing_manager.clothing (name, description, picture, price, origin ) value (?,?,?,?,?)";
 
         try (
                 Connection connection = getConnection();
@@ -94,7 +95,6 @@ public class ClothingServiceImpl implements IClothingService {
             statement.setString(3, clothing.getPicture());
             statement.setInt(4, clothing.getPrice());
             statement.setString(5, clothing.getOrigin());
-            statement.setInt(6, clothing.getCategory_id());
 
             System.out.println(statement);
             statement.executeUpdate();
@@ -117,6 +117,7 @@ public class ClothingServiceImpl implements IClothingService {
                 Connection connection = getConnection();
                 PreparedStatement statement = connection.prepareStatement(updateClothing)
         ) {
+
                 statement.setString(1, clothing.getName());
                 statement.setString(2,clothing.getDescription());
                 statement.setString(3,clothing.getPicture());
@@ -146,7 +147,7 @@ public class ClothingServiceImpl implements IClothingService {
     public List<Clothing> findByPrice(int price) throws SQLException {
         List<Clothing> clothingList = new ArrayList<>();
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement("select * from clothing where price = ?");) {
+             PreparedStatement statement = connection.prepareStatement("select * from clothing_manager.clothing where price = ?");) {
             statement.setInt(1, price);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -167,8 +168,8 @@ public class ClothingServiceImpl implements IClothingService {
     public List<Clothing> findByStatus(String status) {
         List<Clothing> clothingList = new ArrayList<>();
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement("select clothing.id, clothing.name, clothing.description, clothing.picture, clothing.price,\n" +
-                     "       clothing.origin, c.category_name, c.status from clothing inner join category c on clothing.category_id = c.category_id\n" +
+             PreparedStatement statement = connection.prepareStatement("select clothing_manager.clothing.id, clothing_manager.clothing.name, clothing_manager.clothing.description, clothing_manager.clothing.picture, clothing_manager.clothing.price,\n" +
+                     "       clothing_manager.clothing.origin, c.category_name, c.status from clothing_manager.clothing inner join clothing_manager.category c on clothing_manager.clothing.category_id = c.category_id\n" +
                      "where status = ?;");) {
             statement.setString(1, status);
             ResultSet resultSet = statement.executeQuery();

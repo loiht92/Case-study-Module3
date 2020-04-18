@@ -14,12 +14,19 @@
 <body>
 <h1>Clothing</h1>
 <p>
-    <a href="${pageContext.request.contextPath}/clothing?action=createClothing">Clothing-Manager</a>
+    <a href="${pageContext.request.contextPath}/clothing?action=listClothing">Clothing-Manager</a><br/>
+    <a href="${pageContext.request.contextPath}/category?action=listCategory">Category-Manager</a>
+
 </p>
 <div>
-    <form method="get" action="${pageContext.request.contextPath}/clothing">
+    <form method="get" action="${pageContext.request.contextPath}/clothing?action=listClothingCategory">
+        <select name="status">
+            <c:forEach items='${requestScope["categories"]}' var="categories">
+                <option value="${categories.getId()}">${categories.getStatus()}</option>
+            </c:forEach>
+        </select>
+        <button type="submit" value="FindByStatus">Tìm kiếm theo tinh trang</button>
 
-        <button type="submit" name="action" value="search">Tìm kiếm</button>
     </form>
 </div>
 <table border="1">

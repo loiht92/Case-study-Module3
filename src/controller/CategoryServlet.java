@@ -1,6 +1,5 @@
 package controller;
 
-import model.Account;
 import model.Category;
 import model.Clothing;
 import service.Category.CategoryServiceImpl;
@@ -135,7 +134,10 @@ public class CategoryServlet extends HttpServlet {
         requestDispatcher.forward(request,response);
     }
     private void findByCategoryName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("search/findByCategoryName.jsp");
-        requestDispatcher.forward(request, response);
+
+        List<Category> categories = this.categoryService.findAll();
+        request.setAttribute("categories", categories);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("listCategory/list_category.jsp");
+        requestDispatcher.forward(request,response);
     }
 }

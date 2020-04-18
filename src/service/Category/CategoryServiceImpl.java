@@ -12,9 +12,9 @@ public class CategoryServiceImpl implements ICategoryService {
     private static final String jdbcUser = "root";
     private static final String jdbcPass = "loi123456";
     String selectCategory = "select * from category";
-    String insertCategory= "insert into category (category_name, status) value (?,?)";
-    String updateCategory = "update category set category_name = ?, status = ? where category_id = ?";
-    String deleteCategory = "delete from category where category_id = ?";
+    String insertCategory= "insert into clothing_manager.category (category_name, status) value (?,?)";
+    String updateCategory = "update clothing_manager.category set category_name = ?, status = ? where category_id = ?";
+    String deleteCategory = "delete from clothing_manager.category where category_id = ?";
 
     protected Connection getConnection(){
         Connection connection = null;
@@ -32,15 +32,19 @@ public class CategoryServiceImpl implements ICategoryService {
     @Override
     public List<Category> findAll() {
         List<Category> categories = new ArrayList<>();
+        String selectAllCategory = "SELECT * FROM clothing_manager.category ";
 
-        try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(selectCategory)) {
+        try (
+                Connection connection = getConnection();
+                PreparedStatement statement = connection.prepareStatement(selectAllCategory)
+        ) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                String name = resultSet.getString("name");
+                int id = resultSet.getInt("category_id");
+                String name = resultSet.getString("category_name");
                 String status = resultSet.getString("status");
 
-                categories.add(new Category(name, status));
+                categories.add(new Category(id, name, status));
             }
         } catch (SQLException e) {
             e.printStackTrace();

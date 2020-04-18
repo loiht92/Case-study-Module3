@@ -15,7 +15,7 @@
 
 <h1 style="text-align: center">Category Management</h1>
 <h2>
-    <a href="${pageContext.request.contextPath}/clothing?action=listCategory">List All category</a>
+    <a href="${pageContext.request.contextPath}/category?action=listCategory">List All category</a>
 </h2>
 
 <div align="center">
