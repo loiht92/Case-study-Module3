@@ -2,10 +2,10 @@ package controller;
 
 import model.Category;
 import model.Clothing;
-import service.Category.CategoryServiceImpl;
-import service.Category.ICategoryService;
-import service.Clothing.ClothingServiceImpl;
-import service.Clothing.IClothingService;
+import service.category.CategoryServiceImpl;
+import service.category.ICategoryService;
+import service.clothing.ClothingServiceImpl;
+import service.clothing.IClothingService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,8 +19,8 @@ import java.util.List;
 
 @WebServlet(name = "CategoryServlet", urlPatterns = "/category")
 public class CategoryServlet extends HttpServlet {
-	private IClothingService clothingService = new ClothingServiceImpl();
-	private ICategoryService categoryService = new CategoryServiceImpl();
+	private final IClothingService clothingService = new ClothingServiceImpl();
+	private final ICategoryService categoryService = new CategoryServiceImpl();
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {

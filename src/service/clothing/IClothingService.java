@@ -1,6 +1,5 @@
-package service.Clothing;
+package service.clothing;
 
-import model.Category;
 import model.Clothing;
 
 import java.sql.SQLException;

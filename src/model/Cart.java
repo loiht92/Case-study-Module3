@@ -1,17 +1,26 @@
 package model;
 
 public class Cart {
-	private Integer cartId;
+	private Integer id;
 	private Integer userId;
 	private Integer clothingId;
 	private Integer quantity;
 	
-	public Integer getCartId() {
-		return cartId;
+	public Cart(){}
+	
+	public Cart(Integer id, Integer userId, Integer clothingId, Integer quantity) {
+		this.id = id;
+		this.userId = userId;
+		this.clothingId = clothingId;
+		this.quantity = quantity;
 	}
 	
-	public void setCartId(Integer cartId) {
-		this.cartId = cartId;
+	public Integer getId() {
+		return id;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 	public Integer getUserId() {

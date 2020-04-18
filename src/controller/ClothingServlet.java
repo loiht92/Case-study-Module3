@@ -2,10 +2,10 @@ package controller;
 
 import model.Category;
 import model.Clothing;
-import service.Category.CategoryServiceImpl;
-import service.Clothing.ClothingServiceImpl;
-import service.Category.ICategoryService;
-import service.Clothing.IClothingService;
+import service.category.CategoryServiceImpl;
+import service.clothing.ClothingServiceImpl;
+import service.category.ICategoryService;
+import service.clothing.IClothingService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

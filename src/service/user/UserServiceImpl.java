@@ -1,4 +1,4 @@
-package service.AcountService;
+package service.user;
 
 import model.User;
 import service.DatabaseInit;

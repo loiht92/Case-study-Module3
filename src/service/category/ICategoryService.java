@@ -1,7 +1,6 @@
-package service.Category;
+package service.category;
 
 import model.Category;
-import model.Clothing;
 
 import java.sql.SQLException;
 import java.util.List;

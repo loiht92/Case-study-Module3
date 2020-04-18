@@ -1,4 +1,4 @@
-package service.Category;
+package service.category;
 
 import model.Category;
 import service.DatabaseInit;

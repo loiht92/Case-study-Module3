@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" type="text/css" href="footer.css">
 </head>
 <body>
 
@@ -93,63 +94,60 @@
 </div>
 
 <!-- Footer -->
-<footer class="text-light">
+<section id="footer">
     <div class="container">
+        <div class="row text-center text-xs-center text-sm-left text-md-left">
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <h5>Quick links</h5>
+                <ul class="list-unstyled quick-links">
+                    <li><a href=""><i class="fa fa-angle-double-right"></i>Home</a></li>
+                    <li><a href=""><i class="fa fa-angle-double-right"></i>About</a></li>
+                    <li><a href=""><i class="fa fa-angle-double-right"></i>FAQ</a></li>
+                    <li><a href=""><i class="fa fa-angle-double-right"></i>Get Started</a></li>
+                    <li><a href=""><i class="fa fa-angle-double-right"></i>Videos</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <h5>Quick links</h5>
+                <ul class="list-unstyled quick-links">
+                    <li><a href=""><i class="fa fa-angle-double-right"></i>Home</a></li>
+                    <li><a href=""><i class="fa fa-angle-double-right"></i>About</a></li>
+                    <li><a href=""><i class="fa fa-angle-double-right"></i>FAQ</a></li>
+                    <li><a href=""><i class="fa fa-angle-double-right"></i>Get Started</a></li>
+                    <li><a href=""><i class="fa fa-angle-double-right"></i>Videos</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <h5>Quick links</h5>
+                <ul class="list-unstyled quick-links">
+                    <li><a href=""><i class="fa fa-angle-double-right"></i>Home</a></li>
+                    <li><a href=""><i class="fa fa-angle-double-right"></i>About</a></li>
+                    <li><a href=""><i class="fa fa-angle-double-right"></i>FAQ</a></li>
+                    <li><a href=""><i class="fa fa-angle-double-right"></i>Get Started</a></li>
+                    <li><a href="https://wwwe.sunlimetech.com" title="Design and developed by"><i class="fa fa-angle-double-right"></i>Imprint</a></li>
+                </ul>
+            </div>
+        </div>
         <div class="row">
-            <div class="col-md-3 col-lg-4 col-xl-3">
-                <h5>About</h5>
-                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
-                <p class="mb-0">
-                    Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant
-                    impression.
-                </p>
-            </div>
-
-            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto">
-                <h5>Informations</h5>
-                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
-                <ul class="list-unstyled">
-                    <li><a href="">Link 1</a></li>
-                    <li><a href="">Link 2</a></li>
-                    <li><a href="">Link 3</a></li>
-                    <li><a href="">Link 4</a></li>
+            <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+                <ul class="list-unstyled list-inline social text-center">
+                    <li class="list-inline-item"><a href=""><i class="fa fa-facebook"></i></a></li>
+                    <li class="list-inline-item"><a href=""><i class="fa fa-twitter"></i></a></li>
+                    <li class="list-inline-item"><a href=""><i class="fa fa-instagram"></i></a></li>
+                    <li class="list-inline-item"><a href=""><i class="fa fa-google-plus"></i></a></li>
+                    <li class="list-inline-item"><a href="" target="_blank"><i class="fa fa-envelope"></i></a></li>
                 </ul>
             </div>
-
-            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto">
-                <h5>Others links</h5>
-                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
-                <ul class="list-unstyled">
-                    <li><a href="">Link 1</a></li>
-                    <li><a href="">Link 2</a></li>
-                    <li><a href="">Link 3</a></li>
-                    <li><a href="">Link 4</a></li>
-                </ul>
-            </div>
-
-            <div class="col-md-4 col-lg-3 col-xl-3">
-                <h5>Contact</h5>
-                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
-                <ul class="list-unstyled">
-                    <li><i class="fa fa-home mr-2"></i> My company</li>
-                    <li><i class="fa fa-envelope mr-2"></i> email@example.com</li>
-                    <li><i class="fa fa-phone mr-2"></i> + 33 12 14 15 16</li>
-                    <li><i class="fa fa-print mr-2"></i> + 33 12 14 15 16</li>
-                </ul>
-            </div>
-            <div class="col-12 copyright mt-3">
-                <p class="float-left">
-                    <a href="#">Back to top</a>
-                </p>
-                <p class="text-right text-muted">created with <i class="fa fa-heart"></i> by <a
-                        href="https://t-php.fr/43-theme-ecommerce-bootstrap-4.html"><i>t-php</i></a> |
-                    <span>v. 1.0</span></p>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+                <p><u><a href="https://www.nationaltransaction.com/">National Transaction Corporation</a></u> is a Registered MSP/ISO of Elavon, Inc. Georgia [a wholly owned subsidiary of U.S. Bancorp, Minneapolis, MN]</p>
+                <p class="h6">&copy All right Reversed.<a class="text-green ml-2" href="https://www.sunlimetech.com" target="_blank">Sunlimetech</a></p>
             </div>
         </div>
     </div>
-</footer>
+</section>
 
-</form>
 </body>
 </html>
 
