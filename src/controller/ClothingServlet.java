@@ -30,6 +30,7 @@ public class ClothingServlet extends HttpServlet {
                     createClothing(request, response);
                     break;
                 case "update":
+                    editClothing(request,response);
                     break;
                 default:
                     break;
@@ -84,35 +85,19 @@ public class ClothingServlet extends HttpServlet {
         requestDispatcher.forward(request,response);
     }
 
-    private void showListCategory(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException,ServletException {
-        List<Category> categories = this.categoryService.findAll();
-        request.setAttribute("categories", categories);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("clothes/list_category.jsp");
-        requestDispatcher.forward(request,response);
-
-    }
-
     private void createClothing(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        String name = request.getParameter("clothing.name");
-        String description = request.getParameter("clothing.description");
-        String picture = request.getParameter("clothing.picture");
-        int price = Integer.parseInt(request.getParameter("clothing.price"));
-        String origin = request.getParameter("clothing.origin");
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
+        String picture = request.getParameter("picture");
+        int price = Integer.parseInt(request.getParameter("price"));
+        String origin = request.getParameter("origin");
 
-        String categoryName = request.getParameter("category.name");
-        String categoryStatus = request.getParameter("category.status");
 
-        List<Category> categoryList = this.categoryService.findAll();
-        request.setAttribute("listCategory", categoryList);
-
-        Clothing clothing = new Clothing(name,description,picture,price,origin,categoryName,categoryStatus);
+        Clothing clothing = new Clothing(name,description,picture,price,origin);
         this.clothingService.insert(clothing);
 
-//        Category category = new Category(categoryName, categoryStatus);
-//        this.categoryService.insert(category);
-
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("clothes/create_clothing.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("listClothing/create_clothing.jsp");
         request.setAttribute("message","Tao moi thanh cong");
         try {
             requestDispatcher.forward(request,response);
@@ -121,25 +106,11 @@ public class ClothingServlet extends HttpServlet {
         }
     }
 
-    private void createCategory(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        String name = request.getParameter("name");
-        String status = request.getParameter("status");
-        Category category = new Category(name,status);
-        this.categoryService.insert(category);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("clothes/create_category.jsp");
-        requestDispatcher.forward(request,response);
-
-    }
-
     private void showCreateClothing(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("clothes/create_clothing.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("listClothing/create_clothing.jsp");
         requestDispatcher.forward(request,response);
     }
 
-    private void showCreateCategory(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("clothes/create_category.jsp");
-        requestDispatcher.forward(request,response);
-    }
 
     private void editClothing(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -151,31 +122,13 @@ public class ClothingServlet extends HttpServlet {
 
         Clothing clothing = new Clothing(id,name,description,picture,price,origin);
         this.clothingService.update(clothing);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("clothes/edit_clothing.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("listClothing/edit_clothing.jsp");
         requestDispatcher.forward(request,response);
-    }
-
-    private void editCategory(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        String name = request.getParameter("name");
-        String status = request.getParameter("status");
-
-        Category category = new Category(id,name,status);
-        this.categoryService.update(category);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("clothes/edit_category.jsp");
-        requestDispatcher.forward(request,response);
-
     }
 
     private void showEditClothing(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("clothes/edit_clothing.jsp");
-        requestDispatcher.forward(request,response);
-    }
-
-    private void showEditCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("clothes/edit_category.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("listClothing/edit_clothing.jsp");
         requestDispatcher.forward(request,response);
     }
 
@@ -184,16 +137,8 @@ public class ClothingServlet extends HttpServlet {
         this.clothingService.remove(id);
         List<Clothing> clothing  = this.clothingService.findAll();
         request.setAttribute("clothing",clothing);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("clothes/list_clothing.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("listClothing/list_clothing.jsp");
         requestDispatcher.forward(request,response);
     }
 
-    private void deleteCategory(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        this.categoryService.remove(id);
-        List<Category> categories = this.categoryService.findAll();
-        request.setAttribute("categories",categories);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("clothes/list_category.jsp");
-        requestDispatcher.forward(request,response);
-    }
 }

@@ -50,16 +50,43 @@ public class BillDetailsImpl implements IBillDetails{
 
     @Override
     public void insert(BillDetails billDetails) throws SQLException {
+        try(
+                Connection connection = getConnection();
+                PreparedStatement statement = connection.prepareStatement(insertBillDetails))
+        {
+            statement.setInt(1, billDetails.getNumber_export());
+            statement.setFloat(2,billDetails.getExport_price());
+            System.out.println(statement);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     public boolean update(BillDetails billDetails) throws SQLException {
-        return false;
+        boolean rowUpdated;
+        try(Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(updateBillDetails)) {
+            statement.setInt(1, billDetails.getNumber_export());
+            statement.setFloat(2,billDetails.getExport_price());
+            statement.setInt(3,billDetails.getId());
+
+            rowUpdated = statement.executeUpdate() > 0;
+        }
+        return rowUpdated;
     }
 
     @Override
     public boolean remove(int id) throws SQLException {
-        return false;
+        boolean rowDeleted;
+        try(Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(deleteBillDetails)) {
+            statement.setInt(1,id);
+            rowDeleted = statement.executeUpdate() > 0;
+        }
+        return rowDeleted;
     }
 }

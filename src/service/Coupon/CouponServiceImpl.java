@@ -49,16 +49,42 @@ public class CouponServiceImpl implements ICoupon{
 
     @Override
     public void insert(Coupon coupon) throws SQLException {
+        try(
+                Connection connection = getConnection();
+                PreparedStatement statement = connection.prepareStatement(insertCoupon))
+        {
+            statement.setString(1, coupon.getImport_date());
+
+            System.out.println(statement);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     public boolean update(Coupon coupon) throws SQLException {
-        return false;
+        boolean rowUpdated;
+        try(Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(updateCoupon)) {
+            statement.setString(1, coupon.getImport_date());
+            statement.setInt(2,coupon.getId());
+
+            rowUpdated = statement.executeUpdate() > 0;
+        }
+        return rowUpdated;
     }
 
     @Override
     public boolean remove(int id) throws SQLException {
-        return false;
+        boolean rowDeleted;
+        try(Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(deleteCoupon)) {
+            statement.setInt(1,id);
+            rowDeleted = statement.executeUpdate() > 0;
+        }
+        return rowDeleted;
     }
 }

@@ -50,16 +50,43 @@ public class CouponDetailsImpl implements ICouponDetails{
 
     @Override
     public void insert(CouponDetails couponDetails) throws SQLException {
+        try(
+                Connection connection = getConnection();
+                PreparedStatement statement = connection.prepareStatement(insertCouponDetails))
+        {
+            statement.setInt(1, couponDetails.getNumber_import());
+            statement.setFloat(2,couponDetails.getImport_price());
+            System.out.println(statement);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     public boolean update(CouponDetails couponDetails) throws SQLException {
-        return false;
+        boolean rowUpdated;
+        try(Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(updateCouponDetails)) {
+            statement.setInt(1, couponDetails.getNumber_import());
+            statement.setFloat(2,couponDetails.getImport_price());
+            statement.setInt(3,couponDetails.getId());
+
+            rowUpdated = statement.executeUpdate() > 0;
+        }
+        return rowUpdated;
     }
 
     @Override
     public boolean remove(int id) throws SQLException {
-        return false;
+        boolean rowDeleted;
+        try(Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(deleteCouponDetails)) {
+            statement.setInt(1,id);
+            rowDeleted = statement.executeUpdate() > 0;
+        }
+        return rowDeleted;
     }
 }

@@ -50,16 +50,43 @@ public class BillServiceImpl implements IBill{
 
     @Override
     public void insert(Bill bill) throws SQLException {
+        try(
+                Connection connection = getConnection();
+                PreparedStatement statement = connection.prepareStatement(insertBill))
+        {
+            statement.setString(1, bill.getExport_date());
+            statement.setString(2,bill.getCustomer_name());
+            System.out.println(statement);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     public boolean update(Bill bill) throws SQLException {
-        return false;
+        boolean rowUpdated;
+        try(Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(updateBill)) {
+            statement.setString(1, bill.getExport_date());
+            statement.setString(2,bill.getCustomer_name());
+            statement.setInt(3,bill.getId());
+
+            rowUpdated = statement.executeUpdate() > 0;
+        }
+        return rowUpdated;
     }
 
     @Override
     public boolean remove(int id) throws SQLException {
-        return false;
+        boolean rowDeleted;
+        try(Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(deleteBill)) {
+            statement.setInt(1,id);
+            rowDeleted = statement.executeUpdate() > 0;
+        }
+        return rowDeleted;
     }
 }
